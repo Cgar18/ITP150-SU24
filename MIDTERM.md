@@ -20,6 +20,41 @@ Enter a number: 10
 Sum of primes less than 10 is: 17
 ```
 
+
+def is_prime(num):
+    """Check if a number is prime."""
+    if num <= 1:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+def sum_of_primes(n):
+    """Calculate the sum of all prime numbers less than n."""
+    total = 0
+    for i in range(2, n):
+        if is_prime(i):
+            total += i
+    return total
+
+# Input from the user
+try:
+    n = int(input("Enter a number: "))
+    if n <= 1:
+        print("Please enter a number greater than 1.")
+    else:
+        result = sum_of_primes(n)
+        print(f"Sum of primes less than {n} is: {result}")
+except ValueError:
+    print("Invalid input! Please enter a valid integer.")
+
+
+
+
+
+
+
 ### Problem 2: Palindrome Checker (10 points)
 
 #### Problem:
@@ -49,6 +84,21 @@ Enter a string: hello
 ```
 hello is not a palindrome.
 ```
+
+def is_palindrome(s):
+    """Check if the string is a palindrome using slicing."""
+    return s == s[::-1]
+
+# Input from the user
+input_string = input("Enter a string: ").strip()
+
+# Check for palindrome
+if is_palindrome(input_string):
+    print(f"{input_string} is a palindrome.")
+else:
+    print(f"{input_string} is not a palindrome.")
+
+
 
 ### Problem 3: FizzBuzz with String Output (10 points)
 
@@ -86,6 +136,19 @@ FizzBuzz
 ...
 ```
 
+# FizzBuzz Program
+for i in range(1, 101):
+    if i % 3 == 0 and i % 5 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)
+
+
+
 ### Problem 4: String Compression (15 points)
 
 #### Problem:
@@ -115,6 +178,34 @@ Enter a string: abc
 ```
 Compressed string: abc
 ```
+def compress_string(s):
+    """Compress the string using counts of repeated characters."""
+    if not s:  # Handle empty string
+        return s
+    
+    compressed = []
+    count = 1
+
+    for i in range(1, len(s)):
+        if s[i] == s[i - 1]:
+            count += 1
+        else:
+            compressed.append(s[i - 1] + str(count))
+            count = 1
+    
+    # Add the last character and its count
+    compressed.append(s[-1] + str(count))
+    
+    compressed_string = ''.join(compressed)
+
+    # Return the original string if compressed is not smaller
+    return compressed_string if len(compressed_string) < len(s) else s
+
+# Input from the user
+input_string = input("Enter a string: ")
+result = compress_string(input_string)
+print(f"Compressed string: {result}")
+
 
 ### Problem 5: Evaluate a Mathematical Expression (15 points)
 
@@ -146,6 +237,24 @@ Enter a mathematical expression: (2 + 3) * (7 - 5)
 Result: 10
 ```
 
+def evaluate_expression(expr):
+    """Evaluate a mathematical expression."""
+    try:
+        result = eval(expr)
+        return result
+    except Exception as e:
+        return str(e)
+
+# Input from the user
+input_expr = input("Enter a mathematical expression: ")
+result = evaluate_expression(input_expr)
+print(f"Result: {result}")
+
+
+
+
+
+
 ### Bonus Problem: Matrix Transpose (10 points)
 
 ### Problem:
@@ -173,3 +282,41 @@ Transposed matrix:
 [2, 5, 8]
 [3, 6, 9]
 ```
+
+def transpose_matrix(matrix):
+    """Transpose the given matrix."""
+    # Create a new matrix for the transposed result
+    transposed = []
+    
+    # Use a for loop to iterate through the columns of the original matrix
+    for i in range(len(matrix[0])):
+        # Create a new row for the transposed matrix
+        new_row = []
+        for row in matrix:
+            new_row.append(row[i])
+        transposed.append(new_row)
+    
+    return transposed
+
+# Predefined matrix
+original_matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# Transpose the matrix
+transposed_matrix = transpose_matrix(original_matrix)
+
+# Display the original and transposed matrices
+print("Original matrix:")
+for row in original_matrix:
+    print(row)
+
+print("\nTransposed matrix:")
+for row in transposed_matrix:
+    print(row)
+
+
+
+
